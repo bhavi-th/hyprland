@@ -1,5 +1,13 @@
 style=/home/bhavith/.config/wofi/style.css
 
+[config]
 allow_images=true
+show=drun
+prompt=Search
+print_command=true
+insensitive=true
+columns=1
+no_actions=true
+hide_scroll=true
 width=450
 height=300
