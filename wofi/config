@@ -3,11 +3,11 @@ style=/home/bhavith/.config/wofi/style.css
 [config]
 allow_images=true
 show=drun
-prompt=Search
+prompt=
 print_command=true
 insensitive=true
-columns=1
-no_actions=true
+no_actions=false
 hide_scroll=true
-width=450
-height=300
+columns=2
+width=1024
+height=518
