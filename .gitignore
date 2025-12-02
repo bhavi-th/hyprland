@@ -22,3 +22,6 @@ swaync/configSchema.json
 !wlogout/
 !wlogout/layout
 !wlogout/style.css
+!waypaper/
+!waypaper/config.ini
+!waypaper/style.css
