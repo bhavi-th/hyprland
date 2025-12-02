@@ -25,3 +25,4 @@ swaync/configSchema.json
 !waypaper/
 !waypaper/config.ini
 !waypaper/style.css
+!install.sh
