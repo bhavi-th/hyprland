@@ -13,6 +13,7 @@
 !waybar/
 !waybar/config.jsonc
 !waybar/style.css
+!waybar/check.sh
 !kitty/
 !kitty/kitty.conf
 !swaync/

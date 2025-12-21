@@ -55,7 +55,7 @@
     },
   },
   "custom/fullscreen": {
-    "exec": "sh ~/check.sh",
+    "exec": "sh ~/.config/waybar/check.sh",
     "interval": 1,
     "format": "{}",
   },
