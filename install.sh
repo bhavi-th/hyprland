@@ -61,10 +61,12 @@ sudo pacman -S --needed base-devel git \
   ttf-jetbrains-mono-nerd \
   bluez blueman brightnessctl firefox nautilus \
   networkmanager nm-connection-editor pavucontrol zsh vlc \
-  swww wireplumber
+  swww pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber
 
 # --- Step 5: Enable essential services ---
 echo "🔧 Enabling system services..."
+systemctl --user enable --now pipewire
+systemctl --user enable --now pipewire-pulse
 systemctl --user enable --now wireplumber
 sudo systemctl enable --now NetworkManager
 sudo systemctl enable --now bluetooth
