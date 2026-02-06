@@ -35,8 +35,11 @@ cd ~/.config/hyprland-dotfiles
    <li><code>hyprland</code></li>
    <li><code>hyprlock</code></li>
    <li><code>kitty</code></li>
-   <li><code>swaync</code></li>
-   <li><code>waybar</code></li>
+   <li><code>file-roller</code></li>
+   <li><code>eog</code></li>
+   <li><code>gedit</code></li>
+   <li><code>amberol</code></li>
+   <li><code>grimblast</code></li>
    <li><code>wlogout</code></li>
    <li><code>wofi</code></li>
    <li><code>ttf-jetbrains-mono-nerd</code></li>

@@ -56,10 +56,10 @@ done
 
 # --- Step 4: Install base dependencies ---
 echo "📦 Installing base dependencies with pacman..."
-sudo pacman -S --needed base-devel git \
-  hyprland hyprlock kitty swaync waybar wofi \
+sudo pacman -S --needed base-devel eog file-roller gedit git \
+  hyprland hyprlock amberol kitty swaync waybar wofi \
   ttf-jetbrains-mono-nerd \
-  bluez blueman brightnessctl firefox nautilus \
+  bluez blueman brightnessctl grimblast firefox nautilus \
   networkmanager nm-connection-editor pavucontrol zsh vlc \
   swww pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber
 
