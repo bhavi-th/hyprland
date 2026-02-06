@@ -1,26 +1,26 @@
 // -*- mode: jsonc -*-
 {
   "layer": "top",
-  // "position": "bottom",
-  "visible-on-fullscreen": false,
-  "height": 39,
-  "width": 1280,
-  "margin": "4 0 2 0",
-  "spacing": 4,
+  "position": "bottom",
+  "height": 10,
+  // "width": 1280,
+  "margin": "0 5 2 5",
+  "spacing": 0,
 
   "modules-left": [
     "custom/logo",
     "hyprland/workspaces",
-    // "hyprland/window"
     // "hyprland/mode",
     // "hyprland/scratchpad",
-    // "custom/media"
-    "custom/fullscreen",
+    // "custom/media",
+    "custom/fullscreen"
+    // "mpris"
   ],
   "modules-center": ["clock"],
   "modules-right": [
-    //"wlr/taskbar",
-    "mpd",
+    // "hyprland/window",
+    // "wlr/taskbar",
+    // "mpd",
     // "idle_inhibitor",
     "pulseaudio",
     "network",
@@ -61,11 +61,11 @@
   },
   "hyprland/window": {
     "format": "{}",
-    "rewrite": {
-      ".*kitty.*": "Kitty",
-      ".*nvim.*": "Neovim",
-      ".*Mozilla Firefox.*": "Firefox",
-    },
+    // "rewrite": {
+    //   ".*kitty.*": "kitty",
+    //   ".*nvim.*": "neovim",
+    //   ".*Mozilla Firefox.*": "firefox",
+    // },
   },
 
   // "keyboard-state": {
@@ -115,6 +115,9 @@
     "tooltip-format": "MPD (connected)",
     "tooltip-format-disconnected": "MPD (disconnected)",
   },
+  "mpris": {
+    "format": "{title} ",
+  },
   "idle_inhibitor": {
     "format": "{icon}",
     "format-icons": {
@@ -133,15 +136,16 @@
   },
   "clock": {
     // "timezone": "America/New_York",
-    "format": "{:%I:%M %p  %a %b %d}",
+    //"format": "{:%I:%M %p  %a %b %d}",
+    "format": "{:%a %b %d    %I:%M %p}",
     // "tooltip-format": "<big>{:%A, %B %d, %Y}\n<tt>{calendar}</tt></big>",
-    "tooltip-format": "<big>{calendar}</big>",
-    // "format-alt": "{:%d-%m-%Y}",
+    "tooltip-format": "<tt>{calendar}</tt>",
+    // "format-alt": "{:%A %b %d}",
     "on-click": "swaync-client -op",
   },
   "cpu": {
     "format": "{usage}% ",
-    "tooltip": false,
+    "tooltip": true,
   },
   "memory": {
     "format": "{}% ",
@@ -177,8 +181,8 @@
   // },
   "battery": {
     "icon-size": 25,
-    "format": "{icon}",
-    "format-alt": "{}%",
+    "format": "{icon}  {capacity}%",
+    // "format-alt": "{}%",
     // "tooltip-format": "{capacity}%",
     "format-icons": {
       // "charging": [
@@ -194,18 +198,7 @@
       //   "󰂅"
       // ],
       "charging": "",
-      "default": [
-        "󰁺",
-        "󰁻",
-        "󰁼",
-        "󰁽",
-        "󰁾",
-        "󰁿",
-        "󰂀",
-        "󰂁",
-        "󰂂",
-        "󰁹"
-      ]
+      "default": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
     },
     "format-full": "Charged ",
     "interval": 5,
@@ -213,7 +206,7 @@
       "warning": 20,
       "critical": 10,
     },
-    "tooltip": false
+    "tooltip": false,
   },
   "battery#bat2": {
     "bat": "BAT2",
@@ -233,81 +226,61 @@
     // "interface": "wlp2*", // (Optional) To force the use of this interface
     // "format-wifi": "{essid} ({signalStrength}%) ",
     // "format-wifi": "",
-    "format": "",
+    "format": "    ({essid})",
     "format-ethernet": "{ipaddr}/{cidr} ",
     // "tooltip-format": "{ifname} via {gwaddr} ",
     "tooltip-format": "{essid} ({signalStrength}%)",
-    "format-linked": "{ifname} (No IP) ",
+    // "format-linked": "{ifname} (No IP) ",
     "format-disconnected": "",
     "tooltip-format-disconnected": "Disconnected",
     // "format-disconnected": "⚠",
     // "format-alt": "{ifname}: {ipaddr}/{cidr}",
-    "format-alt": "{essid}",
+    // "format-alt": "{essid}",
   },
   "pulseaudio": {
-    "icon-size": 25,
     // "scroll-step": 1, // %, can be a float
-    // "format": "[{icon}]{format_source}",
-    "format": "{icon}{format_source}",
-    "format-bluetooth": "{volume}% {icon}{format_source}",
-    "format-bluetooth-muted": " {icon}{format_source}",
-    "format-muted": "{format_source}",
-    "format-source": "    ",
-    // "format-source-muted": "",
+    "format": "{icon}   {volume}% {format_source}",
+    "format-bluetooth": "  {volume}% {format_source}",
+    "format-bluetooth-muted": "{format_source}",
+    "format-muted": "{format_source}",
+    "format-source": "",
     "format-source-muted": "",
-    // "tooltip-format": "{volume}% {icon} {format_source}",
-    "tooltip": false,
-    "format-alt": "{volume}%{format_source}",
     "format-icons": {
-      "headphone": "",
-      "hands-free": "",
-      "headset": "",
-      "phone": "",
-      "portable": "",
-      "car": "",
+      // "headphone": "",
+      // "hands-free": "",
+      // "headset": "",
+      // "phone": "",
+      // "portable": "",
+      // "car": "",
       "default": ["", "", ""],
-      // "default": [
-      //   "",
-      //   "-",
-      //   "- -",
-      //   "- - -",
-      //   "- - - -",
-      //   "- - - - -",
-      //   "- - - - - -",
-      //   "- - - - - - -",
-      //   "- - - - - - - -",
-      //   "- - - - - - - - -",
-      //   "- - - - - - - - - -"
-      // ]
     },
-    // "on-click": "pavucontrol",
+    "on-click": "pavucontrol",
   },
-  // "wlr/taskbar": {
-  //   "format": "{icon}",
-  //   "icon-size": 28,
-  //   "icon-theme": "Numix-Circle",
-  //   "tooltip-format": "{title}",
-  //   "on-click": "activate",
-  //   "on-click-middle": "close",
-  //   "ignore-list": [
-  //     "Alacritty"
-  //   ],
-  //   "app_ids-mapping": {
-  //     "firefoxdeveloperedition": "firefox-developer-edition"
-  //   },
-  //   "rewrite": {
-  //     "Firefox Web Browser": "Firefox",
-  //     "Foot Server": "Terminal"
-  //   }
-  // },
   "wlr/taskbar": {
     "format": "{icon}",
-    "on-click": "activate",
-    "on-click-right": "fullscreen",
-    "icon-theme": "WhiteSur",
-    "icon-size": 25,
+    "icon-size": 20,
+    "icon-theme": "Numix-Circle",
     "tooltip-format": "{title}",
+    "on-click": "activate",
+    "on-click-middle": "close",
+    "on-click-right": "fullscreen",
+    "ignore-list": ["Alacritty"],
+    "app_ids-mapping": {
+      "firefoxdeveloperedition": "firefox-developer-edition",
+    },
+    //"rewrite": {
+    //  "Firefox Web Browser": "Firefox",
+    //  "Foot Server": "Terminal"
+    //}
   },
+  //"wlr/taskbar": {
+  //  "format": "{icon}",
+  //  "on-click": "activate",
+  //  "on-click-right": "fullscreen",
+  //  "icon-theme": "WhiteSur",
+  //  "icon-size": 25,
+  //  "tooltip-format": "{title}",
+  //},
   "custom/media": {
     "format": "{icon} {text}",
     "return-type": "json",

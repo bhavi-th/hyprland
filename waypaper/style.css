@@ -1,5 +1,9 @@
 window {
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: transparent;
+}
+
+button {
+    border: none;
 }
 
 button:hover {
@@ -16,9 +20,19 @@ button:hover>image {
 .highlighted-button {
     background-image: none;
     box-shadow: none;
-    background-color: rgba(0,0,0,0.5);
+    background-color: transparent;
+    border-color: transparent;
 }
 
 .highlighted-button>image, .highlighted-button:hover>image {
     -gtk-icon-effect: highlight;
 }
+
+/* Remove the active wallpaper highlight in Waypaper */
+.wallpaper-preview:selected {
+    border: none;
+    box-shadow: none;
+    outline: none;
+    background: transparent;
+}
+
