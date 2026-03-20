@@ -1,6 +1,6 @@
 * {
   /* `otf-font-awesome` is required to be installed for icons */
-  font-size: 16px;
+  font-size: 14px;
   font-family: JetBrainsMono;
 }
 
@@ -12,7 +12,6 @@ tooltip {
 window#waybar {
   background-color: rgba(0, 0, 0, 0.6);
   /* border-bottom: 3px solid rgba(100, 114, 125, 0.5); */
-  border-radius: 32px;
   color: #ffffff;
   transition-property: background-color;
   transition-duration: 0.5s;
@@ -402,9 +401,8 @@ label:focus {
 
 #custom-logo {
   color: white;
-  padding: 0px;
-  margin: 0px 10px;
-  margin-right: 0px;
+  margin-left: 10px;
+  font-size: 18px;
 }
 
 #custom-power {

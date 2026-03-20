@@ -2,13 +2,13 @@
 
 set -e
 
-echo "🌌 Hyprland Dotfiles Installer"
+echo "Hyprland Dotfiles Installer"
 echo "This will overwrite your existing configs. Backups will be created."
 
 # --- Step 1: Ensure Internet Connection ---
-echo "🌐 Checking internet connection..."
+echo "Checking internet connection..."
 if ! ping -c 1 archlinux.org &>/dev/null; then
-  echo "⚠️ No internet detected. Let's connect using nmcli."
+  echo "No internet detected. Let's connect using nmcli."
   echo "Available Wi-Fi networks:"
   nmcli device wifi list
   echo "Enter the SSID you want to connect to:"
@@ -23,13 +23,13 @@ if ! ping -c 1 archlinux.org &>/dev/null; then
 
   # Verify connection
   if ping -c 1 archlinux.org &>/dev/null; then
-    echo "✅ Internet connection established."
+    echo "Internet connection established."
   else
     echo "❌ Failed to connect. Please check your Wi-Fi settings and rerun the script."
     exit 1
   fi
 else
-  echo "✅ Internet connection detected."
+  echo "Internet connection detected."
 fi
 
 # --- Step 2: Backup existing configs ---
@@ -55,16 +55,16 @@ for dir in "${CONFIG_DIRS[@]}"; do
 done
 
 # --- Step 4: Install base dependencies ---
-echo "📦 Installing base dependencies with pacman..."
+echo "Installing base dependencies with pacman..."
 sudo pacman -S --needed base-devel eog file-roller gedit git \
   hyprland hyprlock amberol kitty swaync waybar wofi \
-  ttf-jetbrains-mono-nerd \
-  bluez blueman brightnessctl grimblast firefox nautilus \
+  ttf-jetbrains-mono-nerd unzip nodejs npm \
+  bluez blueman brightnessctl firefox nautilus \
   networkmanager nm-connection-editor pavucontrol zsh vlc \
   swww pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber
 
 # --- Step 5: Enable essential services ---
-echo "🔧 Enabling system services..."
+echo "Enabling system services..."
 systemctl --user enable --now pipewire
 systemctl --user enable --now pipewire-pulse
 systemctl --user enable --now wireplumber
@@ -73,21 +73,21 @@ sudo systemctl enable --now bluetooth
 
 # --- Step 6: Setup yay (AUR helper) ---
 if ! command -v yay &> /dev/null; then
-  echo "⚡ yay not found. Installing yay (AUR helper)..."
+  echo "yay not found. Installing yay (AUR helper)..."
   cd ~/.config
   git clone https://aur.archlinux.org/yay.git
   cd yay
   makepkg -si --noconfirm
   cd ..
-  echo "✅ yay installed successfully!"
+  echo "yay installed successfully!"
 else
-  echo "✅ yay is already installed."
+  echo "yay is already installed."
 fi
 
 # --- Step 7: Install AUR packages ---
-echo "📦 Installing AUR packages with yay..."
-yay -S --needed wlogout
+echo "Installing AUR packages with yay..."
+yay -S --needed wlogout grimblast
 
-echo "✅ Installation complete!"
+echo "Installation complete!"
 echo "Reload Hyprland with: hyprctl reload"
 echo "Backups saved in: $BACKUP_DIR"

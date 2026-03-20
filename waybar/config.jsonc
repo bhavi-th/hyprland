@@ -2,9 +2,9 @@
 {
   "layer": "top",
   "position": "bottom",
-  "height": 10,
+  "height": 8,
   // "width": 1280,
-  "margin": "0 5 2 5",
+  "margin": "0",
   "spacing": 0,
 
   "modules-left": [
