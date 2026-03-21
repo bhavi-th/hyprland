@@ -8,8 +8,7 @@ This repo contains my personal configuration files — installing them will repl
 <h2>🚀 Getting Started</h2>
 
 <h3>1. Clone the repo:</h3>
-<pre><code>git clone https://github.com/bhavi-th/hyprland-dotfiles ~/.config/hyprland-dotfiles
-cd ~/.config/hyprland-dotfiles
+<pre><code>git clone https://github.com/bhavi-th/hyprland-dotfiles
 </code></pre>
 
 <h3>2. Run the installer</h3>
@@ -22,7 +21,6 @@ cd ~/.config/hyprland-dotfiles
    <li>Backup your existing configs into <code>~/config-backup-YYYYMMDD-HHMMSS</code></li>
    <li>Copy my configs into <code>~/.config/</code></li>
    <li>Install required dependencies (Arch Linux / pacman)</li>
-   <li>Set up <code>yay</code> (AUR helper) inside <code>~/.config/yay</code> if not already installed</li>
 </ul>
 
 <h3>3. Reload Hyprland</h3>
@@ -45,6 +43,7 @@ cd ~/.config/hyprland-dotfiles
    <li><code>ttf-jetbrains-mono-nerd</code></li>
    <li><code>yay</code> (AUR helper, cloned into <code>~/.config/yay</code>)</li>
 </ul>
+and many more...
 
 <h2>🎨 Customize</h2>
 <ul>
