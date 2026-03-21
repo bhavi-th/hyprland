@@ -74,9 +74,8 @@ sudo pacman -S --needed base-devel btop eog file-roller gedit git \
   hyprland hyprlock amberol kitty swaync waybar wofi \
   ttf-jetbrains-mono-nerd unzip nodejs npm noto-fonts-emoji noto-fonts-cjk noto-fonts \
   bluez blueman brightnessctl firefox nautilus neovim \
-  networkmanager nm-connection-editor pavucontrol zsh vlc \
+  networkmanager nm-connection-editor pavucontrol vlc \
   swww pipewire pipewire-alsa pipewire-pulse pipewire-jack qbittorrent wireplumber \
-  zsh-autosuggestions zsh-syntax-highlighting
 
 # --- Step 5: Services and Fonts ---
 sudo systemctl enable --now NetworkManager bluetooth
@@ -93,18 +92,7 @@ else
 fi
 
 # --- Step 7: Install AUR packages ---
-# Removed zsh-theme-powerlevel10k from yay since you clone it manually later
 yay -S --needed wlogout grimblast google-chrome ani-cli
-
-# Setup Oh-My-Zsh and P10K
-if [ ! -d "$HOME/.oh-my-zsh" ]; then
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-fi
-
-ZSH_CUSTOM=${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}
-if [ ! -d "$ZSH_CUSTOM/themes/powerlevel10k" ]; then
-  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$ZSH_CUSTOM/themes/powerlevel10k"
-fi
 
 echo "Installation complete!"
 echo "Backups saved in: $BACKUP_DIR"
