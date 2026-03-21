@@ -8,7 +8,8 @@ This repo contains my personal configuration files — installing them will repl
 <h2>🚀 Getting Started</h2>
 
 <h3>1. Clone the repo:</h3>
-<pre><code>git clone https://github.com/bhavi-th/hyprland-dotfiles
+<pre><code>git clone https://github.com/bhavi-th/hyprland.git
+cd hyprland/
 </code></pre>
 
 <h3>2. Run the installer</h3>
