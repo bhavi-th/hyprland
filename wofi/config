@@ -1,4 +1,4 @@
-style=/home/bhavith/.config/wofi/style.css
+style=USER_HOME/.config/wofi/style.css
 
 [config]
 allow_images=true

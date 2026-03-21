@@ -1,15 +1,19 @@
 #!/bin/bash
 
+# Exit on error
 set -e
 
 echo "Hyprland Dotfiles Installer"
 echo "This will overwrite your existing configs. Backups will be created."
 
+# --- Step 0: Identify Script Location ---
+# This finds the absolute path of the folder containing this script
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
+
 # --- Step 1: Ensure Internet Connection ---
 echo "Checking internet connection..."
 if ! ping -c 1 archlinux.org &>/dev/null; then
   echo "No internet detected. Let's connect using nmcli."
-  echo "Available Wi-Fi networks:"
   nmcli device wifi list
   echo "Enter the SSID you want to connect to:"
   read SSID
@@ -21,11 +25,10 @@ if ! ping -c 1 archlinux.org &>/dev/null; then
     nmcli device wifi connect "$SSID" password "$PASSWORD"
   fi
 
-  # Verify connection
   if ping -c 1 archlinux.org &>/dev/null; then
     echo "Internet connection established."
   else
-    echo "❌ Failed to connect. Please check your Wi-Fi settings and rerun the script."
+    echo "Failed to connect. Please check your Wi-Fi settings and rerun the script."
     exit 1
   fi
 else
@@ -46,48 +49,63 @@ for dir in "${CONFIG_DIRS[@]}"; do
   fi
 done
 
-# --- Step 3: Copy new configs ---
+# --- Step 3: Copy new configs from Script Directory ---
+echo "Installing configs from: $SCRIPT_DIR"
+mkdir -p "$HOME/.config"
+
 for dir in "${CONFIG_DIRS[@]}"; do
-  if [ -d "$HOME/.config/hyprland-dotfiles/$dir" ]; then
+  # Look for the folder as a sibling to this script
+  if [ -d "$SCRIPT_DIR/$dir" ]; then
     echo "Installing $dir config..."
-    cp -r "$HOME/.config/hyprland-dotfiles/$dir" "$HOME/.config/"
+    cp -r "$SCRIPT_DIR/$dir" "$HOME/.config/"
+
+    if [ "$dir" == "wofi" ]; then
+      echo "Patching Wofi configuration path..."
+      sed -i "s|USER_HOME|$HOME|g" "$HOME/.config/wofi/config"
+    fi
+  else
+    echo "Skipping $dir: Folder not found in $SCRIPT_DIR"
   fi
 done
 
 # --- Step 4: Install base dependencies ---
-echo "Installing base dependencies with pacman..."
-sudo pacman -S --needed base-devel eog file-roller gedit git \
+echo "Installing base dependencies..."
+sudo pacman -S --needed base-devel btop eog file-roller gedit git \
   hyprland hyprlock amberol kitty swaync waybar wofi \
-  ttf-jetbrains-mono-nerd unzip nodejs npm \
-  bluez blueman brightnessctl firefox nautilus \
+  ttf-jetbrains-mono-nerd unzip nodejs npm noto-fonts-emoji noto-fonts-cjk noto-fonts \
+  bluez blueman brightnessctl firefox nautilus neovim \
   networkmanager nm-connection-editor pavucontrol zsh vlc \
-  swww pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber
+  swww pipewire pipewire-alsa pipewire-pulse pipewire-jack qbittorrent wireplumber \
+  zsh-autosuggestions zsh-syntax-highlighting
 
-# --- Step 5: Enable essential services ---
-echo "Enabling system services..."
-systemctl --user enable --now pipewire
-systemctl --user enable --now pipewire-pulse
-systemctl --user enable --now wireplumber
-sudo systemctl enable --now NetworkManager
-sudo systemctl enable --now bluetooth
+# --- Step 5: Services and Fonts ---
+sudo systemctl enable --now NetworkManager bluetooth
+systemctl --user enable --now pipewire pipewire-pulse wireplumber
+fc-cache -fv
 
-# --- Step 6: Setup yay (AUR helper) ---
+# --- Step 6: Setup yay ---
 if ! command -v yay &> /dev/null; then
-  echo "yay not found. Installing yay (AUR helper)..."
-  cd ~/.config
-  git clone https://aur.archlinux.org/yay.git
-  cd yay
-  makepkg -si --noconfirm
-  cd ..
-  echo "yay installed successfully!"
+  echo "Installing yay..."
+  git clone https://aur.archlinux.org/yay.git /tmp/yay
+  cd /tmp/yay && makepkg -si --noconfirm && cd -
 else
   echo "yay is already installed."
 fi
 
 # --- Step 7: Install AUR packages ---
-echo "Installing AUR packages with yay..."
-yay -S --needed wlogout grimblast
+# Removed zsh-theme-powerlevel10k from yay since you clone it manually later
+yay -S --needed wlogout grimblast google-chrome ani-cli
+
+# Setup Oh-My-Zsh and P10K
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+fi
+
+ZSH_CUSTOM=${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}
+if [ ! -d "$ZSH_CUSTOM/themes/powerlevel10k" ]; then
+  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$ZSH_CUSTOM/themes/powerlevel10k"
+fi
 
 echo "Installation complete!"
-echo "Reload Hyprland with: hyprctl reload"
 echo "Backups saved in: $BACKUP_DIR"
+hyprctl reload || echo "Hyprland not running, skip reload."
