@@ -1,16 +1,12 @@
 #!/bin/bash
 
-# Exit on error
 set -e
 
 echo "Hyprland Dotfiles Installer"
 echo "This will overwrite your existing configs. Backups will be created."
 
-# --- Step 0: Identify Script Location ---
-# This finds the absolute path of the folder containing this script
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
 
-# --- Step 1: Ensure Internet Connection ---
 echo "Checking internet connection..."
 if ! ping -c 1 archlinux.org &>/dev/null; then
   echo "No internet detected. Let's connect using nmcli."
@@ -35,7 +31,6 @@ else
   echo "Internet connection detected."
 fi
 
-# --- Step 2: Backup existing configs ---
 BACKUP_DIR="$HOME/config-backup-$(date +%Y%m%d-%H%M%S)"
 mkdir -p "$BACKUP_DIR"
 
@@ -49,12 +44,10 @@ for dir in "${CONFIG_DIRS[@]}"; do
   fi
 done
 
-# --- Step 3: Copy new configs from Script Directory ---
 echo "Installing configs from: $SCRIPT_DIR"
 mkdir -p "$HOME/.config"
 
 for dir in "${CONFIG_DIRS[@]}"; do
-  # Look for the folder as a sibling to this script
   if [ -d "$SCRIPT_DIR/$dir" ]; then
     echo "Installing $dir config..."
     cp -r "$SCRIPT_DIR/$dir" "$HOME/.config/"
@@ -68,7 +61,6 @@ for dir in "${CONFIG_DIRS[@]}"; do
   fi
 done
 
-# --- Step 4: Install base dependencies ---
 echo "Installing base dependencies..."
 sudo pacman -S --needed base-devel btop eog file-roller gedit git \
   hyprland hyprlock amberol kitty swaync waybar wofi \
@@ -77,12 +69,10 @@ sudo pacman -S --needed base-devel btop eog file-roller gedit git \
   networkmanager nm-connection-editor pavucontrol vlc polkit-gnome ntfs-3g\
   swww pipewire pipewire-alsa pipewire-pulse pipewire-jack qbittorrent wireplumber \
 
-# --- Step 5: Services and Fonts ---
 sudo systemctl enable --now NetworkManager bluetooth
 systemctl --user enable --now pipewire pipewire-pulse wireplumber
 fc-cache -fv
 
-# --- Step 6: Setup yay ---
 if ! command -v yay &> /dev/null; then
   echo "Installing yay..."
   git clone https://aur.archlinux.org/yay.git /tmp/yay
@@ -91,7 +81,6 @@ else
   echo "yay is already installed."
 fi
 
-# --- Step 7: Install AUR packages ---
 yay -S --needed wlogout grimblast google-chrome ani-cli
 
 echo "Installation complete!"
