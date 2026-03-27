@@ -129,7 +129,7 @@
     "spacing": 10,
     "icons": {
       "blueman": "bluetooth",
-      // "nm-applet": "/home/bhavith/.local/share/icons/custom/network-wireless-signal-excellent-symbolic.svg"
+      "nm-applet": "/home/bhavith/.local/share/icons/custom/network-wireless-signal-excellent-symbolic.svg"
       // "TelegramDesktop": "$HOME/.local/share/icons/hicolor/16x16/apps/telegram.png"
     },
   },
