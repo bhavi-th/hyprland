@@ -65,9 +65,9 @@ echo "Installing base dependencies..."
 sudo pacman -S --needed base-devel btop eog file-roller gedit git \
   hyprland hyprlock amberol kitty swaync waybar wofi \
   ttf-jetbrains-mono-nerd unzip nodejs npm noto-fonts-emoji noto-fonts-cjk noto-fonts \
-  bluez blueman brightnessctl firefox nautilus neovim \
+  bluez bluez-utils blueman brightnessctl firefox nautilus neovim \
   networkmanager nm-connection-editor pavucontrol vlc polkit-gnome ntfs-3g\
-  swww pipewire pipewire-alsa pipewire-pulse pipewire-jack qbittorrent wireplumber \
+  awww pipewire pipewire-alsa pipewire-pulse pipewire-jack qbittorrent wireplumber wl-clipboard\
 
 sudo systemctl enable --now NetworkManager bluetooth
 systemctl --user enable --now pipewire pipewire-pulse wireplumber
